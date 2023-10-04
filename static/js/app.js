@@ -4,7 +4,7 @@ let sampleData;
 
 
 //Create bar plot
-function barPlot(id) {
+function allPlots(id) {
     let samples = sampleData.samples;
     let identifier = samples.filter(sample => sample.id === id);
     let filtered = identifier[0];
@@ -22,6 +22,21 @@ function barPlot(id) {
    
     let barData = [barTrace];
     Plotly.newPlot('bar', barData);
+//Create bubble plot
+    let bubbleTrace = {
+        x: filtered.otu_ids,
+        y: filtered.sample_values,
+        mode: 'markers',
+        marker: {
+            size: filtered.sample_values,
+            color: filtered.otu_ids,
+            colorscale: 'Earth'
+        },
+        text: filtered.otu_labels,
+    };
+    let bubbleData = [bubbleTrace];
+    
+    Plotly.newPlot('bubble', bubbleData);
 
 }
 
@@ -43,7 +58,7 @@ function init() {
         Object.values(names).forEach(value => {
             dropDown.append('option').text(value);
         })
-        barPlot(names[0])
+        allPlots(names[0])
        
     })
 };
