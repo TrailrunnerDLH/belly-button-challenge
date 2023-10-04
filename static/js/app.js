@@ -2,7 +2,6 @@ const samplesURL = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-cla
 
 let sampleData;
 
-
 //Create bar plot
 function dataViz(id) {
     let samples = sampleData.samples;
@@ -19,9 +18,9 @@ function dataViz(id) {
         orientation: 'h'
     };
  
-   
     let barData = [barTrace];
     Plotly.newPlot('bar', barData);
+
 //Create bubble plot
     let bubbleTrace = {
         x: filtered.otu_ids,
@@ -49,13 +48,11 @@ function dataViz(id) {
     })
 }
 
-
-
-
-
-
-
-
+//Create function to update for each subject in study
+function optionChanged(id) {
+    dataViz(id);
+    
+};
 
 // Use D3 library to read samples.JSON file 
 function init() {
