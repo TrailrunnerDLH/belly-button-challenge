@@ -4,7 +4,7 @@ let sampleData;
 
 
 //Create bar plot
-function allPlots(id) {
+function dataViz(id) {
     let samples = sampleData.samples;
     let identifier = samples.filter(sample => sample.id === id);
     let filtered = identifier[0];
@@ -38,6 +38,15 @@ function allPlots(id) {
     
     Plotly.newPlot('bubble', bubbleData);
 
+    let metadata = sampleData.metadata;
+    let metadataIdentifier = metadata.filter(sample =>
+        sample.id.toString() === id)[0];
+    let panel = d3.select('#sample-metadata');
+
+    panel.html('');
+    Object.entries(metadataIdentifier).forEach(([key, value]) => {
+        panel.append('div').text(`${key}: ${value}`);
+    })
 }
 
 
@@ -58,7 +67,7 @@ function init() {
         Object.values(names).forEach(value => {
             dropDown.append('option').text(value);
         })
-        allPlots(names[0])
+        dataViz(names[0])
        
     })
 };
